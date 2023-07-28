@@ -1,0 +1,13 @@
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+.DS_Store
+
+libs/gpu/GpuWrapper.cpp
+libs/gpu/*.so
+libs/gpu/build/
+
+output/
+.caches
+

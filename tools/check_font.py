@@ -30,6 +30,7 @@ if __name__ == '__main__':
         unsupported_chars, _ = check_font_chars(v, charset)
 
         print("font: %s ,chars unsupported: %d" % (k, len(unsupported_chars)))
+        print(unsupported_chars)
         if len(unsupported_chars) != 0:
             if args.delete:
                 os.remove(k)

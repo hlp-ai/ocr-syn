@@ -1,4 +1,4 @@
-./data/fonts/eng/arial.ttf
-./data/fonts/eng/cour.TTF
-./data/fonts/eng/micross.ttf
-./data/fonts/eng/times.ttf
+./data/fonts/latin/arial.ttf
+./data/fonts/latin/cour.TTF
+./data/fonts/latin/micross.ttf
+./data/fonts/latin/times.ttf

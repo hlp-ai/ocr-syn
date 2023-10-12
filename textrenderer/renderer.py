@@ -18,7 +18,7 @@ from textrenderer.remaper import Remaper
 
 class Renderer(object):
     def __init__(self, corpus, fonts, bgs, cfg, width=256, height=32,
-                 clip_max_chars=False, debug=False, gpu=False, strict=False):
+                 clip_max_chars=False, debug=False, strict=False):
         self.corpus = corpus
         self.fonts = fonts
         self.bgs = bgs
@@ -27,7 +27,6 @@ class Renderer(object):
         self.clip_max_chars = clip_max_chars
         self.max_chars = 16  # math.floor(width / 4) - 1
         self.debug = debug
-        self.gpu = gpu
         self.strict = strict
         self.cfg = cfg
 
@@ -76,8 +75,7 @@ class Renderer(object):
             self.apply_perspective_transform(word_img, text_box_pnts,
                                              max_x=self.cfg.perspective_transform.max_x,
                                              max_y=self.cfg.perspective_transform.max_y,
-                                             max_z=self.cfg.perspective_transform.max_z,
-                                             gpu=self.gpu)
+                                             max_z=self.cfg.perspective_transform.max_z)
 
         self.dmsg("After perspective transform")
 
@@ -541,7 +539,7 @@ class Renderer(object):
         size = (size[0] - offset[0], size[1] - offset[1])
         return size
 
-    def apply_perspective_transform(self, img, text_box_pnts, max_x, max_y, max_z, gpu=False):
+    def apply_perspective_transform(self, img, text_box_pnts, max_x, max_y, max_z):
         """
         Apply perspective transform on image
         :param img: origin numpy image
@@ -563,7 +561,7 @@ class Renderer(object):
 
         transformer = math_utils.PerspectiveTransform(x, y, z, scale=1.0, fovy=50)
 
-        dst_img, M33, dst_img_pnts = transformer.transform_image(img, gpu)
+        dst_img, M33, dst_img_pnts = transformer.transform_image(img)
         dst_text_pnts = transformer.transform_pnts(text_box_pnts, M33)
 
         return dst_img, dst_img_pnts, dst_text_pnts

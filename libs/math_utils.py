@@ -53,12 +53,8 @@ def cliped_rand_norm(mu=0, sigma3=1):
     return dst
 
 
-def warpPerspective(src, M33, sl, gpu):
-    if gpu:
-        from libs.gpu.GpuWrapper import cudaWarpPerspectiveWrapper
-        dst = cudaWarpPerspectiveWrapper(src.astype(np.uint8), M33, (sl, sl), cv2.INTER_CUBIC)
-    else:
-        dst = cv2.warpPerspective(src, M33, (sl, sl), flags=cv2.INTER_CUBIC)
+def warpPerspective(src, M33, sl):
+    dst = cv2.warpPerspective(src, M33, (sl, sl), flags=cv2.INTER_CUBIC)
     return dst
 
 
@@ -73,7 +69,7 @@ class PerspectiveTransform(object):
         self.scale = scale
         self.fovy = fovy
 
-    def transform_image(self, src, gpu=False):
+    def transform_image(self, src):
         if len(src.shape) > 2:
             H, W, C = src.shape
         else:
@@ -82,7 +78,7 @@ class PerspectiveTransform(object):
         M33, sl, _, ptsOut = self.get_warp_matrix(W, H, self.x, self.y, self.z, self.scale, self.fovy)
         sl = int(sl)
 
-        dst = warpPerspective(src, M33, sl, gpu)
+        dst = warpPerspective(src, M33, sl)
 
         return dst, M33, ptsOut
 

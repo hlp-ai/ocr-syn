@@ -46,7 +46,6 @@ renderer = Renderer(corpus, fonts, bgs, cfg,
                     width=flags.img_width,
                     clip_max_chars=flags.clip_max_chars,
                     debug=flags.debug,
-                    gpu=flags.gpu,
                     strict=flags.strict)
 
 
